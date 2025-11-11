@@ -1,84 +1,139 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const skillTreeContainer = document.getElementById('skill-tree-container');
+    const skillTreeRoot = document.getElementById('skill-tree-root');
+    let skillData = {};
 
-    const createSkillTree = (data) => {
-        data.forEach(categoryData => {
-            const category = document.createElement('div');
-            category.classList.add('category');
+    // Load progress from localStorage
+    const loadProgress = () => {
+        const progress = localStorage.getItem('peerPathProgress');
+        return progress ? JSON.parse(progress) : {};
+    };
 
-            const categoryHeader = document.createElement('div');
-            categoryHeader.classList.add('category-header');
-            categoryHeader.innerHTML = `<span>${categoryData.category}</span><span class="arrow">▼</span>`;
-            category.appendChild(categoryHeader);
+    // Save progress to localStorage
+    const saveProgress = () => {
+        localStorage.setItem('peerPathProgress', JSON.stringify(skillData));
+    };
 
-            const categoryContent = document.createElement('div');
-            categoryContent.classList.add('category-content');
-            category.appendChild(categoryContent);
+    const createNode = (data, type) => {
+        const node = document.createElement('div');
+        node.classList.add('tree-node');
 
-            categoryData.subcategories.forEach(subcategoryData => {
-                const subcategory = document.createElement('div');
-                subcategory.classList.add('subcategory');
+        const content = document.createElement('div');
+        content.classList.add('node-content');
+        content.textContent = data.name || data.category || data.task;
+        node.appendChild(content);
 
-                const subcategoryHeader = document.createElement('div');
-                subcategoryHeader.classList.add('subcategory-header');
-                subcategoryHeader.innerHTML = `<span>${subcategoryData.name}</span><span class="arrow">▶</span>`;
-                subcategory.appendChild(subcategoryHeader);
+        if (type === 'task') {
+            content.innerHTML = ''; // Clear text, we'll build custom content
+            content.classList.add('task-node');
 
-                const tasksContainer = document.createElement('div');
-                tasksContainer.classList.add('tasks');
-                subcategory.appendChild(tasksContainer);
+            const uniqueId = `task-${data.id.replace(/\s|&/g, '-')}`;
 
-                subcategoryData.tasks.forEach(taskData => {
-                    const task = document.createElement('div');
-                    task.classList.add('task');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = uniqueId;
+            checkbox.checked = data.completed;
+            
+            const customCheckbox = document.createElement('span');
+            customCheckbox.classList.add('custom-checkbox');
 
-                    const checkboxId = `${categoryData.category}-${subcategoryData.name}-${taskData.level}`.replace(/\s+/g, '-');
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = checkboxId;
-                    task.appendChild(checkbox);
+            const label = document.createElement('label');
+            label.htmlFor = uniqueId;
+            label.textContent = `Lvl ${data.level}: ${data.task}`;
+            
+            content.appendChild(checkbox);
+            content.appendChild(customCheckbox);
+            content.appendChild(label);
+            
+            if(data.completed) {
+                 content.classList.add('completed');
+            }
 
-                    const label = document.createElement('label');
-                    label.htmlFor = checkboxId;
-                    label.textContent = `Lvl ${taskData.level}: ${taskData.task}`;
-                    task.appendChild(label);
-
-                    tasksContainer.appendChild(task);
-                });
-
-                categoryContent.appendChild(subcategory);
-
-                subcategoryHeader.addEventListener('click', () => {
-                    const tasks = subcategory.querySelector('.tasks');
-                    const arrow = subcategoryHeader.querySelector('.arrow');
-                    if (tasks.style.maxHeight) {
-                        tasks.style.maxHeight = null;
-                        arrow.style.transform = 'rotate(0deg)';
-                    } else {
-                        tasks.style.maxHeight = tasks.scrollHeight + "px";
-                        arrow.style.transform = 'rotate(90deg)';
-                    }
-                });
+            checkbox.addEventListener('change', () => {
+                data.completed = checkbox.checked;
+                content.classList.toggle('completed', checkbox.checked);
+                saveProgress();
             });
-
-            skillTreeContainer.appendChild(category);
-
-            categoryHeader.addEventListener('click', () => {
-                const content = category.querySelector('.category-content');
-                const arrow = categoryHeader.querySelector('.arrow');
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                    arrow.style.transform = 'rotate(0deg)';
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    arrow.style.transform = 'rotate(180deg)';
+            
+            content.addEventListener('click', (e) => {
+                // Allow clicking the whole area to toggle the checkbox
+                if(e.target.tagName !== 'INPUT') {
+                    checkbox.checked = !checkbox.checked;
+                    // Manually trigger change event
+                    checkbox.dispatchEvent(new Event('change'));
                 }
             });
+
+        } else {
+            const childrenContainer = document.createElement('div');
+            childrenContainer.classList.add('children-container');
+            node.appendChild(childrenContainer);
+
+            content.addEventListener('click', () => {
+                node.classList.toggle('expanded');
+            });
+        }
+        
+        return node;
+    };
+
+    const buildTree = (data, parentElement) => {
+        data.forEach(item => {
+            if (item.category) { // Category level
+                const categoryNode = createNode(item, 'category');
+                parentElement.appendChild(categoryNode);
+                buildTree(item.subcategories, categoryNode.querySelector('.children-container'));
+            } else if (item.name) { // Subcategory level
+                const subcategoryNode = createNode(item, 'subcategory');
+                parentElement.appendChild(subcategoryNode);
+                buildTree(item.tasks, subcategoryNode.querySelector('.children-container'));
+            } else { // Task level
+                const taskNode = createNode(item, 'task');
+                parentElement.appendChild(taskNode);
+            }
         });
     };
 
     fetch('skills.json')
         .then(response => response.json())
-        .then(data => createSkillTree(data))
+        .then(data => {
+            const progress = loadProgress();
+            // Simple merge of progress into data
+            data.forEach(cat => {
+                cat.subcategories.forEach(sub => {
+                    sub.tasks.forEach(task => {
+                        const taskId = `${cat.category}-${sub.name}-${task.level}`;
+                        task.id = taskId; // Assign a unique ID
+                        if (progress[taskId]) {
+                            task.completed = true;
+                        } else {
+                            task.completed = false;
+                        }
+                    });
+                });
+            });
+            // Store a reference to the data with progress for saving later
+            const flatData = {};
+            data.forEach(cat => cat.subcategories.forEach(sub => sub.tasks.forEach(task => flatData[task.id] = task)));
+            
+            // This is a simplified progress saving mechanism.
+            // For a real app, you'd want a more robust way to map progress to tasks.
+            const progressSaver = new Proxy(flatData, {
+                set(target, property, value) {
+                    target[property] = value;
+                    const completedTasks = {};
+                    for (const id in target) {
+                        if (target[id].completed) {
+                            completedTasks[id] = true;
+                        }
+                    }
+                    localStorage.setItem('peerPathProgress', JSON.stringify(completedTasks));
+                    return true;
+                }
+            });
+            // Re-assign skillData to be the proxy
+            skillData = progressSaver;
+            
+            buildTree(data, skillTreeRoot);
+        })
         .catch(error => console.error('Error loading skill tree data:', error));
 });
