@@ -1,177 +1,167 @@
 :root {
     --bg-color: #1a1a2e;
-    --node-color: #16213e;
+    --sidebar-bg: #16213e;
     --node-border: #0f3460;
-    --text-color: #e94560;
-    --line-color: rgba(128, 128, 128, 0.3);
+    --primary-text: #e94560;
+    --secondary-text: #a0a0c0;
     --glow-color: #e94560;
     --completed-color: #53a969;
+    --line-color: rgba(128, 128, 128, 0.3);
 }
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-    padding: 2rem;
+    color: var(--secondary-text);
+}
+
+.app-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: auto;
+    height: 100vh;
 }
 
-.title-container {
+.skill-tree-container {
+    width: 350px;
+    background-color: var(--sidebar-bg);
+    padding: 1.5rem;
+    overflow-y: auto;
+    border-right: 2px solid var(--node-border);
+    transition: width 0.3s ease;
+}
+
+.title-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
-h1 {
-    font-size: 3.5rem;
-    font-weight: 600;
+.title-header h1 {
+    font-size: 2.5rem;
     color: #fff;
-    letter-spacing: 2px;
-    margin: 0;
+    letter-spacing: 1px;
 }
 
-p {
-    font-size: 1.2rem;
-    color: #a0a0c0;
-}
-
-.skill-tree {
+.main-content {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
-    min-width: fit-content;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+/* Skill Tree UL/LI structure */
+.skill-tree, .skill-tree ul {
+    list-style: none;
+    padding-left: 20px;
+    position: relative;
+}
+
+/* The vertical connector lines */
+.skill-tree ul::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--line-color);
 }
 
 .tree-node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 1rem;
     position: relative;
+}
+
+/* The horizontal connector lines */
+.tree-node > .node-content::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    width: 20px;
+    height: 2px;
+    background-color: var(--line-color);
 }
 
 .node-content {
-    background: var(--node-color);
+    background: var(--sidebar-bg);
     border: 2px solid var(--node-border);
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
     cursor: pointer;
-    position: relative;
-    z-index: 2;
-    transition: all 0.3s ease;
-    min-width: 150px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    font-weight: 400;
+    margin: 0.8rem 0;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
 }
 
 .node-content:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px var(--glow-color);
+    transform: translateX(10px);
     border-color: var(--glow-color);
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+    color: var(--primary-text);
 }
 
-.node-content.completed {
-    background: var(--completed-color);
-    border-color: #87e8a0;
-    color: #fff;
-    box-shadow: 0 0 25px var(--completed-color);
+.node-content .arrow {
+    margin-right: 10px;
+    transition: transform 0.3s ease;
 }
 
 .children-container {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    padding-top: 40px;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.7s ease-in-out, opacity 0.5s ease;
-    opacity: 0;
-}
-
-/* Vertical line from node to its children container */
-.tree-node > .node-content::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 20px;
-    background-color: var(--line-color);
-    z-index: 1;
-    display: none; /* Initially hidden */
-}
-
-/* Horizontal line connecting children */
-.children-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    right: 50%;
-    height: 2px;
-    background-color: var(--line-color);
-    z-index: 1;
-    transition: all 0.5s ease;
-}
-
-/* Style for expanded nodes */
-.tree-node.expanded > .node-content::after {
-    display: block; /* Show vertical line */
+    transition: max-height 0.5s ease-in-out;
 }
 
 .tree-node.expanded > .children-container {
     max-height: 1000px; /* Adjust as needed */
-    opacity: 1;
 }
 
-.tree-node.expanded > .children-container::before {
-    left: 10%;
-    right: 10%;
+.tree-node.expanded > .node-content .arrow {
+    transform: rotate(90deg);
 }
 
+/* Task Specific Styles */
 .task-node {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0;
-    cursor: default;
-}
-
-.task-node label {
     cursor: pointer;
-    transition: color 0.3s ease;
+    background: transparent;
+    border: none;
+    padding-left: 0;
 }
 
-.task-node input[type="checkbox"] {
-    display: none; /* Hide default checkbox */
+.task-node:hover {
+    transform: none;
+    box-shadow: none;
+    color: var(--primary-text);
 }
 
 .task-node .custom-checkbox {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border: 2px solid var(--node-border);
-    background: var(--bg-color);
-    border-radius: 50%;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 4px;
+    margin-right: 12px;
     flex-shrink: 0;
+    transition: all 0.2s ease;
 }
 
-.task-node input[type="checkbox"]:checked + .custom-checkbox {
-    background: var(--completed-color);
-    border-color: var(--completed-color);
-    box-shadow: 0 0 10px var(--completed-color);
+.task-node label {
+    flex-grow: 1;
 }
 
-.task-node input[type="checkbox"]:checked ~ label {
-    color: #888;
+.task-node.completed {
+    color: #6c757d;
+}
+
+.task-node.completed label {
     text-decoration: line-through;
+}
+
+.task-node.completed .custom-checkbox {
+    background-color: var(--completed-color);
+    border-color: var(--completed-color);
 }
