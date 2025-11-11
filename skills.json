@@ -5,25 +5,9 @@
       {
         "name": "Strength",
         "tasks": [
-          { "level": 1, "task": "10 Push-ups" },
-          { "level": 2, "task": "20 Squats" },
-          { "level": 3, "task": "1-minute Plank" }
-        ]
-      },
-      {
-        "name": "Endurance",
-        "tasks": [
-          { "level": 1, "task": "15-minute Jog" },
-          { "level": 2, "task": "30-minute Brisk Walk" },
-          { "level": 3, "task": "5-minute Jump Rope" }
-        ]
-      },
-      {
-        "name": "Flexibility",
-        "tasks": [
-          { "level": 1, "task": "Basic Hamstring Stretch" },
-          { "level": 2, "task": "Cat-Cow Stretch" },
-          { "level": 3, "task": "Butterfly Stretch" }
+          { "level": 1, "task": "10 Push-ups", "tutorial": "Start in a plank position. Lower your body until your chest nearly touches the floor. Push yourself back up. That's one rep. Keep your back straight!" },
+          { "level": 2, "task": "20 Squats", "tutorial": "Stand with feet shoulder-width apart. Lower your hips as if sitting in a chair, keeping your chest up and back straight. Go as low as you can, then return to the start." },
+          { "level": 3, "task": "1-minute Plank", "tutorial": "Hold a push-up position, but with your weight on your forearms instead of your hands. Keep your body in a straight line from head to heels. Engage your core!" }
         ]
       }
     ]
@@ -34,33 +18,13 @@
       {
         "name": "Woodworking",
         "tasks": [
-          { "level": 1, "task": "Learn to use a saw" },
-          { "level": 2, "task": "Build a simple box" },
-          { "level": 3, "task": "Make a small stool" }
-        ]
-      },
-      {
-        "name": "Blacksmithing",
-        "tasks": [
-          { "level": 1, "task": "Learn about safety equipment" },
-          { "level": 2, "task": "Make a simple S-hook" },
-          { "level": 3, "task": "Forge a basic knife" }
+          { "level": 1, "task": "Learn to use a saw", "tutorial": "Safety first! Wear gloves and glasses. Mark your cut line. Use a clamp to secure the wood. Start the cut by pulling the saw towards you gently, then use long, smooth strokes." }
         ]
       },
       {
         "name": "Electronics",
         "tasks": [
-          { "level": 1, "task": "Solder two wires together" },
-          { "level": 2, "task": "Build a simple circuit with a LED" },
-          { "level": 3, "task": "Create a flashing light circuit" }
-        ]
-      },
-      {
-        "name": "Pottery",
-        "tasks": [
-          { "level": 1, "task": "Knead clay" },
-          { "level": 2, "task": "Make a pinch pot" },
-          { "level": 3, "task": "Throw a small bowl on the wheel" }
+          { "level": 1, "task": "Solder two wires together", "tutorial": "You'll need a soldering iron, solder, and flux. Heat the wires with the iron, not the solder. Touch the solder to the heated wires and let it melt and flow over them to create a bond." }
         ]
       }
     ]
@@ -71,33 +35,7 @@
       {
         "name": "Drawing",
         "tasks": [
-          { "level": 1, "task": "Draw a perfect circle" },
-          { "level": 2, "task": "Sketch a still life" },
-          { "level": 3, "task": "Draw a portrait" }
-        ]
-      },
-      {
-        "name": "Painting",
-        "tasks": [
-          { "level": 1, "task": "Learn about color theory" },
-          { "level": 2, "task": "Paint a simple landscape" },
-          { "level": 3, "task": "Paint a self-portrait" }
-        ]
-      },
-      {
-        "name": "Music",
-        "tasks": [
-          { "level": 1, "task": "Learn a basic C major scale" },
-          { "level": 2, "task": "Play a simple song" },
-          { "level": 3, "task": "Compose a short melody" }
-        ]
-      },
-      {
-        "name": "Writing",
-        "tasks": [
-          { "level": 1, "task": "Write a short paragraph about your day" },
-          { "level": 2, "task": "Write a short story" },
-          { "level": 3, "task": "Write a poem" }
+          { "level": 1, "task": "Draw a perfect circle", "tutorial": "A classic challenge! Try using your whole arm and shoulder to draw, not just your wrist. Do it quickly and lightly at first. Practice makes perfect." }
         ]
       }
     ]
@@ -108,9 +46,7 @@
       {
         "name": "Coding",
         "tasks": [
-          { "level": 1, "task": "Write a 'Hello, World!' program" },
-          { "level": 2, "task": "Create a simple calculator" },
-          { "level": 3, "task": "Build a basic to-do list app" }
+          { "level": 1, "task": "Write a 'Hello, World!' program", "tutorial": "In Python, this is one line: print('Hello, World!'). In JavaScript: console.log('Hello, World!');. This is the traditional first step for any programmer." }
         ]
       }
     ]
@@ -121,17 +57,15 @@
       {
         "name": "Cooking",
         "tasks": [
-          { "level": 1, "task": "Boil water" },
-          { "level": 2, "task": "Boil an egg" },
-          { "level": 3, "task": "Cook pasta" }
+          { "level": 1, "task": "Boil water", "tutorial": "Fill a pot with water. Place it on a stove burner set to high heat. Wait for large, rolling bubbles to appear. Congratulations, you've boiled water!" },
+          { "level": 2, "task": "Boil an egg", "tutorial": "Place an egg in a pot of cold water. Bring the water to a boil. For a soft boil, cook for 4-6 minutes. For a hard boil, cook for 10-12 minutes. Immediately place in ice water to stop the cooking." },
+          { "level": 3, "task": "Cook pasta", "tutorial": "Boil a large pot of salted water. Add your pasta and stir occasionally. Follow the package instructions for cooking time. Drain the water and serve!" }
         ]
       },
       {
         "name": "Gardening",
         "tasks": [
-          { "level": 1, "task": "Plant a seed" },
-          { "level": 2, "task": "Grow a herb" },
-          { "level": 3, "task": "Start a small vegetable patch" }
+          { "level": 1, "task": "Plant a seed", "tutorial": "Fill a small pot with soil. Press the seed about half an inch deep. Cover lightly with soil, water it, and place it in a sunny spot." }
         ]
       }
     ]

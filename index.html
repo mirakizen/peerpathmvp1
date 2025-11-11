@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="celebration-canvas"></canvas>
     <div class="app-container">
         <div class="skill-tree-container">
             <div class="title-header">
@@ -17,8 +18,20 @@
                 <!-- Skill tree is dynamically generated here -->
             </ul>
         </div>
-        <div class="main-content">
-            <p>Select a skill to begin your journey.</p>
+        <div class="main-content" id="main-content">
+            <div class="task-display-placeholder">Select a skill to begin your journey.</div>
+            <div class="task-display-container" id="task-display" style="display: none;">
+                <h2 id="task-title"></h2>
+                <p id="task-tutorial"></p>
+                <div class="share-section">
+                    <span>Share Achievement:</span>
+                    <div class="share-buttons">
+                        <a id="share-twitter" href="#" target="_blank">Twitter</a>
+                        <a id="share-facebook" href="#" target="_blank">Facebook</a>
+                        <a id="share-telegram" href="#" target="_blank">Telegram</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
