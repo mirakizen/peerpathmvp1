@@ -1,0 +1,139 @@
+[
+  {
+    "category": "Health & Fitness",
+    "subcategories": [
+      {
+        "name": "Strength",
+        "tasks": [
+          { "level": 1, "task": "10 Push-ups" },
+          { "level": 2, "task": "20 Squats" },
+          { "level": 3, "task": "1-minute Plank" }
+        ]
+      },
+      {
+        "name": "Endurance",
+        "tasks": [
+          { "level": 1, "task": "15-minute Jog" },
+          { "level": 2, "task": "30-minute Brisk Walk" },
+          { "level": 3, "task": "5-minute Jump Rope" }
+        ]
+      },
+      {
+        "name": "Flexibility",
+        "tasks": [
+          { "level": 1, "task": "Basic Hamstring Stretch" },
+          { "level": 2, "task": "Cat-Cow Stretch" },
+          { "level": 3, "task": "Butterfly Stretch" }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Crafting & DIY",
+    "subcategories": [
+      {
+        "name": "Woodworking",
+        "tasks": [
+          { "level": 1, "task": "Learn to use a saw" },
+          { "level": 2, "task": "Build a simple box" },
+          { "level": 3, "task": "Make a small stool" }
+        ]
+      },
+      {
+        "name": "Blacksmithing",
+        "tasks": [
+          { "level": 1, "task": "Learn about safety equipment" },
+          { "level": 2, "task": "Make a simple S-hook" },
+          { "level": 3, "task": "Forge a basic knife" }
+        ]
+      },
+      {
+        "name": "Electronics",
+        "tasks": [
+          { "level": 1, "task": "Solder two wires together" },
+          { "level": 2, "task": "Build a simple circuit with a LED" },
+          { "level": 3, "task": "Create a flashing light circuit" }
+        ]
+      },
+      {
+        "name": "Pottery",
+        "tasks": [
+          { "level": 1, "task": "Knead clay" },
+          { "level": 2, "task": "Make a pinch pot" },
+          { "level": 3, "task": "Throw a small bowl on the wheel" }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Creative",
+    "subcategories": [
+      {
+        "name": "Drawing",
+        "tasks": [
+          { "level": 1, "task": "Draw a perfect circle" },
+          { "level": 2, "task": "Sketch a still life" },
+          { "level": 3, "task": "Draw a portrait" }
+        ]
+      },
+      {
+        "name": "Painting",
+        "tasks": [
+          { "level": 1, "task": "Learn about color theory" },
+          { "level": 2, "task": "Paint a simple landscape" },
+          { "level": 3, "task": "Paint a self-portrait" }
+        ]
+      },
+      {
+        "name": "Music",
+        "tasks": [
+          { "level": 1, "task": "Learn a basic C major scale" },
+          { "level": 2, "task": "Play a simple song" },
+          { "level": 3, "task": "Compose a short melody" }
+        ]
+      },
+      {
+        "name": "Writing",
+        "tasks": [
+          { "level": 1, "task": "Write a short paragraph about your day" },
+          { "level": 2, "task": "Write a short story" },
+          { "level": 3, "task": "Write a poem" }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Tech",
+    "subcategories": [
+      {
+        "name": "Coding",
+        "tasks": [
+          { "level": 1, "task": "Write a 'Hello, World!' program" },
+          { "level": 2, "task": "Create a simple calculator" },
+          { "level": 3, "task": "Build a basic to-do list app" }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Lifestyle",
+    "subcategories": [
+      {
+        "name": "Cooking",
+        "tasks": [
+          { "level": 1, "task": "Boil water" },
+          { "level": 2, "task": "Boil an egg" },
+          { "level": 3, "task": "Cook pasta" }
+        ]
+      },
+      {
+        "name": "Gardening",
+        "tasks": [
+          { "level": 1, "task": "Plant a seed" },
+          { "level": 2, "task": "Grow a herb" },
+          { "level": 3, "task": "Start a small vegetable patch" }
+        ]
+      }
+    ]
+  }
+]
